@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+
+<form id="form">
+</form>
+
+<script src="./../vendor/jquery/sugar.min.js"></script>
+<script src="./../vendor/jquery/jquery2.2.4.min.js"></script>
+<script src="./../vendor/jquery/jquerymy-1.2.14.min.js"></script>
+<script type="text/javascript">
+//Source data
+var person={ 
+  name: "Ann", 
+  metrics:{ age:"25" } 
+};
+// Manifest
+var manifest = {
+  
+  //Default data  
+  data: { name:"", metrics:{ age:"" }},
+  
+  // Init function  
+  init: function ($node, runtime) {
+    $node.html(
+      '<h4>Simplest form</h4>'+
+      '<div><input id="name" type="text" placeholder="Name"/></div>' +
+      '<div><input id="age" type="number" placeholder="Age"/></div>'
+    );
+  },
+  
+  // Bindings
+  ui: {
+    "#name": { bind: "name" },
+    "#age" : { bind: "metrics.age" }
+  }
+};
+// Init $.my over DOM node
+$("#form").my( manifest, person );
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+
+.activiti{
+}
+
+.activiti .activiti-iframe{
+    background: rgb(250, 250, 250);
+    height: calc(100vh - 50px);
+    border:0;
+    width:100%;
+    scrolling : no ;
+    margin: 0;
+}

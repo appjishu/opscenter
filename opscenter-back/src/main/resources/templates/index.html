@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title th:text="${site.name}"></title>
+    <link rel="stylesheet" href="./vendor/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="./vendor/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./vendor/artDialog/css/dialog.css">
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="shortcut icon" href="/imgs/favicon.ico"/>
+   	<link rel="bookmark" href="/imgs/favicon.ico"/>
+</head>
+<body class="sidebar-fixed header-fixed">
+<div class="page-wrapper">
+    <nav class="navbar page-header">
+        <a href="#" class="btn btn-link sidebar-mobile-toggle d-md-none mr-auto">
+            <i class="fa fa-bars"></i>
+        </a>
+
+        <a class="navbar-brand" href="#">
+            <img src="./imgs/logo.png" alt="logo" >
+        </a>
+
+        <a href="#" class="btn btn-link sidebar-toggle d-md-down-none">
+            <i class="fa fa-bars"></i>
+        </a>
+
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item d-md-down-none">
+                <a href="#">
+                    <i class="fa fa-bell"></i>
+                    <span class="badge badge-pill badge-danger">3</span>
+                </a>
+            </li>
+
+            <li class="nav-item d-md-down-none">
+                <a href="#">
+                    <i class="fa fa-envelope-open"></i>
+                    <span class="badge badge-pill badge-danger">5</span>
+                </a>
+            </li>
+
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-user" ></i>
+                    <span class="small ml-1 d-md-down-none">John Smith</span>
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-right">
+                    <div class="dropdown-header">账户</div>
+
+                    <a href="#" class="dropdown-item">
+                        <i class="fa fa-user"></i> 基本资料
+                    </a>
+
+                    <a href="#" class="dropdown-item">
+                        <i class="fa fa-envelope"></i> 邮件信息
+                    </a>
+
+                    <div class="dropdown-header">设置</div>
+
+                    <a href="#" class="dropdown-item">
+                        <i class="fa fa-bell"></i> 公告通知
+                    </a>
+
+                    <a href="#" class="dropdown-item">
+                        <i class="fa fa-wrench"></i> 个人设置
+                    </a>
+
+                    <a href="#" class="dropdown-item" id="logout">
+                        <i class="fa fa-lock"></i> 注销登录
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="main-container">
+        <div class="sidebar">
+            <nav class="sidebar-nav">
+                <ul class="nav">
+                    <li class="nav-title">导航</li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link active" data-addtab="welcome" data-url="/welcome">
+                            <i class="fa fa-home"></i> 欢迎使用
+                        </a>
+                    </li>
+                    <li class="nav-item nav-dropdown">
+                        <a href="#" class="nav-link nav-dropdown-toggle">
+                            <i class="fa fa-dropbox"></i> 开发平台 <i class="fa fa-caret-left"></i>
+                        </a>
+
+                        <ul class="nav-dropdown-items">                    
+                       		<li class="nav-item">
+                                <a href="#" class="nav-link" data-addtab="setting" data-url="http://192.168.43.1:9901/dev/setting.html">
+                                    <i class="fa fa-cog"></i> 系统设置
+                                </a>
+                            </li>
+                        	<li class="nav-item">
+                                <a href="#" class="nav-link" data-addtab="database" data-url="http://192.168.43.1:9901/dev/database.html">
+                                    <i class="fa fa-database"></i> 数据源管理
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" data-addtab="table" data-url="http://192.168.43.1:9901/dev/table.html">
+                                    <i class="fa fa-building"></i> 数据表管理
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" data-addtab="procedure" data-url="/dev/procedure.html">
+                                    <i class="fa fa-product-hunt"></i> 存储过程设计
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" data-addtab="method" data-url="http://192.168.43.1:9901/dev/method.html">
+                                    <i class="fa fa-codepen"></i> 功能管理
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" data-addtab="designer" data-url="http://192.168.43.1:9901/ureport/designer">
+                                    <i class="fa fa-pie-chart"></i> 报表设计器
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" data-addtab="modeler" data-url="http://192.168.43.1:9901/modeler">
+                                    <i class="fa fa-share-alt"></i> 流程设计器
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" data-addtab="swagger-ui" data-url="http://192.168.43.1:9901/swagger-ui.html">
+                                    <i class="fa fa-plug"></i> API测试
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" data-addtab="module" data-url="http://192.168.43.1:9901/dev/module">
+                                    <i class="fa fa-delicious"></i> 模块管理
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" data-addtab="projecteditor" data-url="http://192.168.43.1:9901/dev/projecteditor">
+                                    <i class="fa fa-object-group"></i> 页面编辑器
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item nav-dropdown">
+                        <a href="#" class="nav-link nav-dropdown-toggle">
+                            <i class="fa fa-dropbox"></i> 销售 <i class="fa fa-caret-left"></i>
+                        </a>
+
+                        <ul class="nav-dropdown-items">                    
+                       		<li class="nav-item">
+                                <a href="#" class="nav-link" data-addtab="setting" data-url="http://192.168.43.1:9901/sd/xiaos.html">
+                                    <i class="fa fa-cog"></i> 创建销售单
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" data-addtab="demo" data-url="http://192.168.43.1:9901/sd/demo.html">
+                                    <i class="fa fa-cog"></i> demo
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item nav-dropdown">
+                        <a href="#" class="nav-link nav-dropdown-toggle">
+                            <i class="fa fa-eye"></i> 系统监控 <i class="fa fa-caret-left"></i>
+                        </a>
+
+                        <ul class="nav-dropdown-items">                    
+                        
+                        
+                       		<li class="nav-item">
+                                <a href="#" class="nav-link" data-addtab="setting" data-url="http://192.168.43.1:9901/dev/setting.html">
+                                    <i class="fa fa-shield"></i> 系统安全
+                                </a>
+                            </li>
+                        
+                        	<li class="nav-item">
+                                <a href="#" class="nav-link" data-addtab="database" data-url="http://192.168.43.1:9901/dev/database.html">
+                                    <i class="fa fa-sticky-note"></i> 系统日志
+                                </a>
+                            </li>
+                            
+                        </ul>
+                    </li>
+                    <li class="nav-item nav-dropdown">
+                        <a href="#" class="nav-link nav-dropdown-toggle">
+                            <i class="fa fa-users"></i> 用户中心 <i class="fa fa-caret-left"></i>
+                        </a>
+
+                        <ul class="nav-dropdown-items">
+                        	
+                            
+
+                            <li class="nav-item">
+                                <a href="buttons.html" class="nav-link">
+                                    <i class="fa fa-user"></i> 用户管理
+                                </a>
+                            </li>
+
+                                                      
+
+                        </ul>
+                    </li>
+
+                    
+
+                    <li class="nav-title">人力资源</li>
+
+                    <li class="nav-item nav-dropdown">
+                        <a href="#" class="nav-link nav-dropdown-toggle" >
+                            <i class="icon icon-umbrella"></i> 基础档案 <i class="fa fa-caret-left"></i>
+                        </a>
+
+                        <ul class="nav-dropdown-items">
+                           
+                            <li class="nav-item">
+                                <a href="alerts.html" class="nav-link">
+                                    <i class="fa fa-sitemap"></i> 组织架构管理
+                                </a>
+                            </li>
+                            
+                            <li class="nav-item">
+                                <a href="cards.html" class="nav-link">
+                                    <i class="icon icon-user-following"></i> 角色管理
+                                </a>
+                            </li> 
+
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="content" id="homecontent">
+            <ul class="nav nav-tabs" role="tablist" >
+            </ul>
+            <div class="tab-content">
+            </div>           	
+         </div>
+    </div>
+</div>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="../vendor/vue/vue.js"></script>
+<script src="./vendor/jquery/jquery.min.js"></script>
+<script src="./vendor/jquery/jquery.nicescroll.min.js"></script>
+<script src="./vendor/artDialog/dist/dialog.js"></script>
+<script src="./vendor/artDialog/dist/dialog-plus.js"></script>
+<script src="./vendor/popper.js/popper.min.js"></script>
+<script src="./vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="./vendor/bootstrap/js/bootstrap.addtabs.js"></script>
+<script src="./vendor/chart.js/chart.min.js"></script>
+<script src="./js/carbon.js"></script>
+<script src="./js/demo.js"></script>
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="./vendor/html5shiv.min.js"></script>
+  <script src="./vendor/respond.min.js"></script>
+<![endif]-->
+<script type="text/javascript">
+	function initTabs(){
+		$.addtabs.add({
+		      'target': "#homecontent .nav-tabs",
+		      'id': "welcome",
+		      'title': '<i class="fa fa-home"></i> 欢迎使用',
+		      'content': "",
+		      'url': "/welcome",
+		      'ajax': false
+		    });
+		$.addtabs.drop();
+	}
+	
+	$("#logout").click(function(){
+		$.getJSON("/logoutpage", function(data){
+			if(null != data && data.status == 0){
+        		localStorage.setItem("accessToken", "");
+        		window.location.href="/loginpage";
+        	}
+	    });
+	});
+	
+	$(function() {
+		$(".sidebar-nav").niceScroll({
+		    touchbehavior:false,     //是否是触摸式滚动效果
+		    cursorcolor:"#fff",     //滚动条的颜色值
+		    cursoropacitymax:0.6,   //滚动条的透明度值
+		    cursorwidth:5,         //滚动条的宽度值
+		    autohidemode:true,      //滚动条是否是自动隐藏，默认值为 true
+		});
+		initTabs();
+	});   
+</script>
+</body>
+</html>
+

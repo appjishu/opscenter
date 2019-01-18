@@ -1,0 +1,196 @@
+/* 常用CSS */
+.subapp .clear{
+    outline: none;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+}
+.subapp .hidden{
+    display: none;
+}
+
+/* 总体布局 */
+.subapp{
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    width: 100%;
+    position: relative;
+    height: calc(100vh - 45px);
+    font-size: 14px;
+}
+.subapp .dataarea{
+    justify-content: flex-start;
+    background: rgb(245,245,245);
+    width: 100%;
+    max-width: 800px;
+    margin: 0;
+    padding: 0;
+    border-left: 0;
+    overflow: hidden;
+}
+.subapp .optionarea{
+    background: transparent;
+    right:0;
+    position: absolute;
+    justify-content: flex-end ;
+    width: 100%;
+    max-width: 500px;
+    padding: 0;
+    border-bottom: 0;
+    overflow: hidden;
+    z-index: 10;
+}
+
+/* card类 */
+.subapp .app-card{
+    background: transparent;
+}
+
+/* 头部 */
+.subapp .app-header{
+    border: 0;
+    border-radius: 5px 5px 0 0 ;
+    background: rgb(0,90,159);
+    height: 40px;
+    padding: 5px 10px;
+    color: #ffffff;
+    font-weight: bold;
+    line-height: 30px;
+    position: relative;
+    font-size: 14px;
+}
+
+/* 功能区域 */
+.subapp .btn-group{
+    position: absolute;
+    border: 0;
+    top: 5px;
+    right: 10px;
+    height: 40px;
+    line-height: 30px;
+    color: #ffffff;
+    font-weight: bold;
+    line-height: 30px;
+    z-index: 1
+}
+
+/* 搜索 */
+.subapp .app-search{
+    margin-right: 10px;
+}
+.subapp .app-searchcontent{
+    background: transparent;
+    height: 30px;
+    line-height: 30px;
+    width: 180px;
+    color: rgb(255,255,255);
+    border-bottom: 1px solid rgb(255,255,255);
+    padding: 0 10px;
+    font-size: 14px;
+}
+.subapp .app-searchcontent::-webkit-input-placeholder {
+    color: rgb(255,255,255,0.5);
+ }
+.subapp .app-searchbutton{
+    background: transparent;
+    height: 35px;
+    line-height: 35px;
+    width: 20px;
+    color: rgb(255,255,255);
+}
+
+/* 扩展菜单 */
+.subapp .app-topbutton{
+    background: transparent;
+    height: 35px;
+    line-height: 35px;
+    width: 20px;
+    color: rgb(255,255,255);
+}
+.subapp .app-topmenu{
+    box-shadow: 3px 3px 3px rgb(245,245,245);
+    z-index: 90;
+}
+.subapp .dropdown-item{
+   font-size: 14px;
+   font-weight: normal;
+}
+
+/* 列表 */
+.subapp .app-body{
+    position: relative;
+    height: calc(100vh - 125px);
+    background: rgb(235,235,235);
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0 10px 0 5px ;
+}
+
+.subapp .app-body .list-group-item{
+    margin-top: 5px;
+    padding: 5px 10px;
+    background: rgb(255,255,255)
+}
+
+.subapp .app-rowselect{
+    display: inline-block;
+    font-size: 20px;
+    color:rgb(245,245,245);
+    vertical-align:middle;
+    cursor: pointer;
+
+}
+
+/* 底部工具栏 */
+.subapp .app-footer{
+    border: 0;
+    background: rgb(179, 191, 204);
+    height: 40px;
+    color: rgb(131,131,131);
+    line-height: 30px;
+    border-top: 1px solid rgb(235,235,235);
+    border-radius: 0 0 5px 5px;
+    padding: 0 20px;
+}
+
+.subapp .app-footerbutton{
+    border: 0;
+    border-radius:25px;   
+    background: rgb(0,147,234);
+    height: 25px;
+    padding: 5px 5px;
+    color: rgb(255,255,255);
+    line-height: 1;
+    margin: 5px 5px 0 5px ;
+    width: 25px;
+    font-size: 14px;
+}
+
+
+.subapp .darkbackground{
+    background: rgb(3,44,79);
+}
+.subapp .normalbackground{
+    background: rgb(235,235,235);
+}
+
+.subapp .toolsbackground{
+    background: rgb(225,225,225);
+}
+.subapp .whitebackground{
+    background: rgb(255,255,255);
+}
+.subapp .txtright{
+    text-align: right;
+}
+.subapp .selected{
+    color: rgb(0,147,234);
+}
+.subapp .dark{
+    color: rgb(3,44,79);
+}
+.nicescroll-cursors{
+    z-index: 999;
+}

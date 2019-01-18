@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="../vendor/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="../imgs/favicon.ico" />
+    <link rel="bookmark" href="../imgs/favicon.ico" />
+    <style>
+              
+        body{
+            background: #f5f5f5;
+            padding: 0;
+            margin: 0;
+        }
+        .clear-outline:focus{
+            outline: none;
+            -moz-box-shadow:none;
+            -webkit-box-shadow:none;
+            box-shadow:none;
+            border-radius: 0px; 
+        }
+        .clear-pm{
+            padding:0;
+            margin: 0;
+        }
+
+        .form-horizontal .controls .item{
+            width: 80%;
+            max-width: 480px;
+        }
+
+        .form-horizontal .controls .itemskin{
+            border: #d9d9d9 1px solid;
+            border-radius: 0;
+            height: 32px;
+            line-height: 1.5;
+            padding: 4px 11px;
+            font-size: 14px;
+        }
+        .form-horizontal .controls .cardskin{
+            border: #d9d9d9 1px solid;
+            border-top:0;
+            border-radius: 0;
+            padding: 4px 11px;
+            font-size: 14px;
+        }
+
+        .form-horizontal .controls .textareaskin{
+            border: #d9d9d9 1px solid;
+            border-top:0;
+            border-radius: 0;
+            padding: 4px 11px;
+            font-size: 14px;
+            height: 55px;
+        }
+        .form-horizontal .controls .selectskin{
+           border-right: 0;
+        }
+        .form-horizontal .controls .selectskin2{
+           border-top: 0;
+        }
+        .form-horizontal .controls .optionskin{
+           color: rgba(0,0,0,.65);
+           padding-left: -10px;
+        }
+        .form-horizontal .controls .spanskin{
+           height: 32px;
+           line-height: 1.8;
+           text-align: center;
+           display: inline-block;
+           font-size: 18px;
+        }
+
+        
+        
+        
+        .mt5{
+            margin-top:5px;
+        }
+        .block{
+            display: block;
+        }
+        
+
+
+        .btn {
+            font-weight: normal;
+            padding: 5px 10px;
+            font-size: 14px;
+            line-height: 20px;
+            border-radius: 0;
+            background: 007bff;
+            outline: none;
+        }
+        .text-center{
+            text-align: center;
+            padding-top: 5px;
+            background: #d9d9d9;
+        }
+       
+        .form-horizontal .controls {
+            margin-left: 160px;
+            padding: 2px;
+            color: rgba(0,0,0,.65);
+        }
+        .form-horizontal .control-label {
+            float: left;
+            margin: 0;
+            width: 155px;
+            text-align: right;
+            padding: 6px;
+            height: 32px;
+            line-height: 1.5;
+        }
+        
+        .container-fluid{
+            padding: 0;
+            margin: 0;
+            font-size: 14px;
+        }
+        .app{
+           position: relative;
+        }
+        .form-horizontal{
+            margin: 0;
+            padding: 0;
+        }
+        .topnav{
+            border-top: 5px solid #f5f5f5;
+            border-bottom: 5px solid #f5f5f5;
+            width: 100%;
+            position: fixed;
+            height: 90px;
+            z-index: 10;
+        }
+        .formpanel{
+            background: #fff;
+            margin: 5px;
+            margin-bottom: 0;
+            padding: 10px;
+            position: relative;
+        }
+        legend{
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .navBlank{
+            height: 75px;
+        }
+        .myNav{
+                margin: 0 5px ;
+                background: #fff;
+                height: 35px;
+        }
+        .myOpt{
+            margin: 0 5px ;
+            background: #fff;
+            height: 45px;
+        }
+       
+        .myOpt .view{
+            float: left;
+            line-height: 30px;
+            padding: 5px;
+        }
+        .myOpt .option{
+            float: right;
+            line-height: 30px;
+            padding: 5px;
+        }
+        .myLocation{
+            position: absolute;
+            top:-80px;
+        }
+        .nav-link {
+            padding: 5px 10px;
+            margin: 0 5px;
+        }
+        .nav-pills .nav-link {
+            border-radius: 0;
+        }
+        .wdauto{
+            width: 100%;
+        }
+        .findskin{
+            color:#fff;
+            background: #d9d9d9;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container-fluid app">
+        <div class="panel panel-default topnav">
+            <!--基本信息及操作-->
+            <div class="myOpt">
+                <div class="view">
+                    销售订单
+                    基本状态:
+                </div>
+                <div class="option">
+                    <myoption  v-for="option in options" v-bind='{"type":option.type,"label":option.label}'></myoption>
+                </div>
+            </div>
+            <!--页面导航-->
+            <div class="myNav">
+                <ul class="nav nav-pills">
+                    <li class="nav-item" v-for="fieldset in fieldsets">
+                        <a :class="fieldset.id == currentid? 'nav-link active':'nav-link'" @click="setCurrentid(fieldset.id)" v-bind='{"href":"#"+fieldset.id}'>{{ fieldset.legend }}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--空白消除覆盖-->
+        <div class="navBlank"></div>
+        <!--主表单信息-->
+        <form class="form-horizontal">
+            <fieldset v-for="fieldset in fieldsets">
+                <div class="panel panel-default formpanel">
+                    <div class="panel-body">
+                        <div class="myLocation" v-bind='{"id":fieldset.id}'>
+                        </div>
+                        <div id="legend" class="">
+                            <legend class="">{{ fieldset.legend }}</legend>
+                        </div>
+                        <div v-for="control in fieldset.controls">
+                            <control v-bind='{ "label": control.label, "type": control.type ,"value":control.value, "placeholder": control.placeholder,"help": control.help }'></control>
+                        </div>
+                        <fieldset v-for="subfieldset in fieldset.fieldsets">
+                            <div id="legend" class="">
+                                <legend class="">{{ subfieldset.legend }}</legend>
+                            </div>
+                            <div v-for="subcontrol in subfieldset.controls">
+                                <control v-bind='{ "label": subcontrol.label, "type": subcontrol.type ,"value":subcontrol.value, "placeholder": subcontrol.placeholder,"help": subcontrol.help }'></control>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="../vendor/jquery/jquery2.2.4.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <!-- 表单 JavaScript 文件 -->
+    <script src="../vendor/vue/address.js"></script>
+    <!-- 表单 JavaScript 文件 -->
+    <script src="../vendor/vue/myvue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '.app',
+            methods: {
+                setCurrentid: function(currentid){
+                    this.currentid=currentid;
+                }
+
+            },
+            data: {
+                currentid: "keh",
+                options:[{
+                    label:"新建",
+                    type:"primary"
+                },{
+                    label:"提交",
+                    type:"secondary"
+                },{
+                    label:"审批",
+                    type:"secondary"
+                },{
+                    label:"撤销",
+                    type:"danger"
+                }],
+                fieldsets: [{
+                    legend: "客户信息",
+                    id: "keh",
+                    controls: [
+                        { label: "客户编码", type: "customer", value: "", placeholder: "客户唯一编码(必填)" },
+                        { label: "收货人", type: "text", value: "", placeholder: "请输入"},
+                        { label: "收货电话", type: "text", value: "", placeholder: "请输入"},
+                        { label: "收货地址", type: "region", value: "", placeholder: "详细地址"},
+                    ]
+                },
+                {
+                    legend: "助单信息",
+                    id: "zhud",
+                    controls: [
+                        { label: "业务部门", type: "text", value: "", placeholder: "请输入"},
+                        { label: "业务员", type: "text", value: "", placeholder: "请输入"},
+                        { label: "渠道", type: "text", value: "", placeholder: "请输入"},
+                    ]
+                },
+                {
+                    legend: "单据信息",
+                    id: "danjxx",
+                    controls: [
+                        { label: "参考单号", type: "text", value: "", placeholder: "请输入"},
+                        { label: "销售项目", type: "text", value: "", placeholder: "请输入"},
+                        { label: "订货金额", type: "text", value: "", placeholder: "请输入"},
+                        { label: "总金额", type: "text", value: "", placeholder: "请输入"},
+                        { label: "收款金额", type: "text", value: "", placeholder: "请输入"},
+                        { label: "送货方式", type: "text", value: "", placeholder: "请输入"},
+                        { label: "总毛利", type: "text", value: "", placeholder: "请输入"},
+                        { label: "毛利率", type: "text", value: "", placeholder: "请输入"},
+                        { label: "其他金额", type: "text", value: "", placeholder: "请输入"},
+                        { label: "总数量", type: "text", value: "", placeholder: "请输入"},
+                        { label: "销售备注", type: "text", value: "", placeholder: "请输入"},
+                        { label: "内部备注", type: "text", value: "", placeholder: "请输入"},
+                        { label: "自动出库", type: "text", value: "", placeholder: "请输入"},
+                        { label: "物流单号", type: "text", value: "", placeholder: "请输入"},
+                        { label: "附件", type: "fileButton", value: "", placeholder: "请输入"},
+                    ]
+                }, {
+                    legend: "销售明细",
+                    id: "xiaosmx",
+                    fieldsets: [{
+                        legend: "销售明细一",
+                        controls: [
+                            { label: "商品", type: "product", value: "", placeholder: "选购商品"},
+                            { label: "库区", type: "store", value: "", placeholder: "选择库区"},
+                            { label: "批次", type: "text", value: "", placeholder: "输入批次"},
+                            { label: "单位", type: "text", value: "", placeholder: "计量单位"},
+                            { label: "购买数量", type: "buyenter", value: "", placeholder: "请输入"},
+                            { label: "安装", type: "preText", value: "", placeholder: "安装备注"},
+                            { label: "加工", type: "preText", value: "", placeholder: "加工备注"},
+
+                        ]
+                    }]
+                }]
+            }
+        });
+    </script>
+</body>
+</html>

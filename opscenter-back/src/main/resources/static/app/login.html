@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>APPJISHU ERP</title>
+    <!-- LOGO图标 -->
+    <link rel="shortcut icon" href="../../vue/favicon.ico"/>
+    <link rel="bookmark" href="../../vue/favicon.ico"/>
+    <!-- 常用图标 -->
+    <link rel="stylesheet" href="../../vue/frame/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!-- APP CSS 改编bootstrap -->
+    <link rel="stylesheet" href="../../vue/skin/app.css">
+</head>
+<body class="sidebar-fixed header-fixed login-body">
+        <!-- background:url('') no-repeat; background-size: 100%; -->
+    <div class="page-wrapper flex-row align-items-center">
+        <div class="container">
+            <div class="row justify-content-center" >
+                <div class="login-logo" >
+                    <img src = "../../imgs/logo.png" class="login-img"/>
+                    <p class="login-span">APPJISHU 信息化服务平台</p >
+                </div>  
+                <div class="login-form">
+                    <div class="card p-4" >
+                        <div class="card-body py-5">
+                            <div class="form-group">
+                                <label class="form-control-label" >用户账号</label>
+                                <input type="text" name="username" class="form-control"  placeholder="请输入用户名">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" >登录密码<a href="#" class="forgetpassword">忘记密码?</a></label>
+                                <input type="password" name="password" class="form-control" placeholder="请输入密码" >
+                            </div>
+                            <div class="form-group">
+                                <button type="button" onclick="login()" class="btn btn-primary">登&nbsp&nbsp&nbsp&nbsp录</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "alert401">   
+                        <div class="alert alert-danger" role="alert" >
+                            请检查用户名或密码是否正确 !
+                        </div>
+                    </div>
+                    <p class="join">
+                        欢迎使用
+                        <a href="/join?source=login">创建新账号</a>
+                    </p>
+                    <div class="copyright">
+                        <p>&copy<a href="https://github.com/appjishu" target="_blank">appjishu.com</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="../../vue/frame/html5shiv.min.js"></script>
+    <script src="../../vue/frame/respond.min.js"></script>
+    <![endif]-->
+
+    <!--jQuery框架-->
+    <script src="../../vue/frame/jquery2.2.4.min.js"></script>
+
+    <script src="../../vue/frame/boostrap-4.1.3/js/popper.min.js"></script>
+    <script src="../../vue/frame/boostrap-4.1.3/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        //用户登录
+        function login(){
+            switchAlert(200);
+            var username = $('input[name="username"]').val();
+            var password = $('input[name="password"]').val();
+            $.ajax({
+             type: "post",
+             url: "/login",
+             data: {username:username,password:password},
+             dataType: "json",
+             success: function(data){
+            	if(data.status==0){
+                    window.location.href="/app/index.html#/";
+                }else{
+                    switchAlert(401);
+                }
+             },
+             error:function(data){
+                switchAlert(401);
+             }
+         });
+        }
+
+        //切换登录错误提示框
+        function switchAlert(status){
+            if(status==401){
+                $(".alert401").css("display","block");
+            }else{
+                $(".alert401").css("display","none");
+            }
+        }
+    </script>
+
+</body>
+</html>
+

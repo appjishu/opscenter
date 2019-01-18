@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title ></title>
+    <link rel="stylesheet" href="../vendor/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="../vendor/bootstrap/table/bootstrap-table.min.css">
+    <link rel="stylesheet" href="../vendor/font-awesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="shortcut icon" href="/imgs/favicon.ico"/>
+   	<link rel="bookmark" href="/imgs/favicon.ico"/>
+</head>
+<body class="sidebar-fixed header-fixed">
+<div th:text="${aa}"></div>
+<div th:text="${ab}"></div>
+<div th:text="${ac}"></div>
+<div th:text="${ad}"></div>
+<div th:text="${ae}"></div>
+<script src="../vendor/jquery/jquery.min.js"></script>
+<script src="../vendor/jquery/jquery.nicescroll.min.js"></script>
+<script src="../vendor/popper.js/popper.min.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.addtabs.js"></script>
+<script src="../vendor/bootstrap/table/bootstrap-table.min.js"></script>
+<script src="../vendor/bootstrap/table/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="../vendor/chart.js/chart.min.js"></script>
+<script src="../js/carbon.js"></script>
+<script src="../js/demo.js"></script>
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="../vendor/html5shiv.min.js"></script>
+  <script src="../vendor/respond.min.js"></script>
+<![endif]-->
+<body>
+<table data-toggle="table" data-url="data1.json">
+    <thead>
+        <tr>
+            <th data-field="id">Item ID</th>
+            <th data-field="name">Item Name</th>
+            <th data-field="price">Item Price</th>
+        </tr>
+    </thead>
+</table>
+</body>
+</html>

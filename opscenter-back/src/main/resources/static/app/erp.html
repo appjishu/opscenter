@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>APPJISHU ERP</title>
+    <!-- LOGO图标 -->
+    <link rel="shortcut icon" href="../../vue/favicon.ico"/>
+    <link rel="bookmark" href="../../vue/favicon.ico"/>
+
+    <!-- 常用图标 -->
+    <link rel="stylesheet" href="../../vue/frame/font-awesome-4.7.0/css/font-awesome.min.css">
+
+    <!-- Codemirror -->
+    <link rel="stylesheet" href="../../vue/frame/vuescroll/vuescroll.css">
+    <link rel="stylesheet" href="../../vue/frame/element-ui/element-ui.css">
+
+    <!-- Ztree -->
+    <link rel="stylesheet" href="../../vue/frame/zTree_v3/css/metroStyle/metroStyle.css" />
+    
+    <!-- APP CSS 改编bootstrap -->
+    <link rel="stylesheet" href="../../vue/skin/erp/app.css">
+    <link rel="stylesheet" href="../../vue/skin/erp/subapp.css">
+    <!--开发组件-->
+    <link rel="stylesheet" href="../../vue/skin/erp/erp-order.css">
+    
+    
+</head>
+<body class="sidebar-fixed header-fixed">
+
+    <!-- APP容器 -->
+    <div id="ruerpapp" class="page-wrapper" v-loading="loadapp" >
+        <template v-if="!loadapp">
+            <!--APPJISHU 顶部导航-->
+            <!--页面主空间-->
+            <div class="main-container">
+                <!--菜单栏-->
+                <ruerpsidebar v-bind="{navdata:navdata,sidebardata:sidebardata,processdata:processdata,sidebarops:sidebarops,currentPath:currentPath}"></ruerpsidebar>
+                <!--工作区-->
+                <div class="content">
+                    <keep-alive>
+                        <router-view v-if="$route.meta.keepAlive">
+                            <!-- 这里是会被缓存的视图组件，比如 Home！ -->
+                        </router-view>
+                    </keep-alive>
+                    <router-view v-if="!$route.meta.keepAlive">
+                        <!-- 这里是不被缓存的视图组件，比如 Edit！ -->
+                    </router-view>
+                
+                </div>
+            </div>
+        </template>
+    </div>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="../../vue/frame/html5shiv.min.js"></script>
+    <script src="../../vue/frame/respond.min.js"></script>
+    <![endif]-->
+
+    <!--jQuery框架-->
+    <script src="../../vue/frame/jquery2.2.4.min.js"></script>
+    <script src="../vendor/jquery/ajaxupload.js"></script>
+
+    <!-- Ztree -->
+    <script src="../../vue/frame/zTree_v3/js/jquery.ztree.all.min.js"></script>
+
+    <script src="../../vue/frame/jquery.nicescroll.min.js"></script>
+    <script src="../../vue/frame/boostrap-4.1.3/js/popper.min.js"></script>
+    <script src="../../vue/frame/boostrap-4.1.3/js/bootstrap.min.js"></script>
+
+    <!--Vue框架-->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- <script src="../../vue/frame/vue.js"></script> -->
+    <script src="../../vue/frame/vue-router.js"></script>
+    <!--vuescroll-->
+    <script src="../../vue/frame/vuescroll/vuescroll.min.js"></script>
+    <!-- Codemirror -->
+    <script src="../../vue/frame/codemirror-5.42.0/lib/vuecodemirror.min.js"></script>
+    <!-- element-ui -->
+    <script src="../../vue/frame/element-ui/element-ui.min.js"></script>
+    <script src="http://res2.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+    
+    <script>
+        Vue.component('vuescroll',vuescroll);
+        Vue.component('codemirror', VueCodeMirror.codemirror);
+        window.Calc  = {
+			/*
+				 函数，加法函数，用来得到精确的加法结果 
+				 说明：javascript的加法结果会有误差，在两个浮点数相加的时候会比较明显。这个函数返回较为精确的加法结果。
+				 参数：arg1：第一个加数；arg2第二个加数；d要保留的小数位数（可以不传此参数，如果不传则不处理小数位数）
+				 调用：Calc.Add(arg1,arg2,d) 
+				 返回值：两数相加的结果
+			*/
+			Add: function (arg1, arg2) {
+				arg1 = arg1.toString(), arg2 = arg2.toString();
+				var arg1Arr = arg1.split("."), arg2Arr = arg2.split("."), d1 = arg1Arr.length == 2 ? arg1Arr[1] : "", d2 = arg2Arr.length == 2 ? arg2Arr[1] : "";
+				var maxLen = Math.max(d1.length, d2.length);
+				var m = Math.pow(10, maxLen);
+				var result = Number(((arg1 * m + arg2 * m) / m).toFixed(maxLen));
+				var d = arguments[2];
+				return typeof d === "number" ? Number((result).toFixed(d)) : result;
+			},
+			/*
+				函数：减法函数，用来得到精确的减法结果 
+				说明：函数返回较为精确的减法结果。 
+				参数：arg1：第一个加数；arg2第二个加数；d要保留的小数位数（可以不传此参数，如果不传则不处理小数位数
+				调用：Calc.Sub(arg1,arg2) 
+				返回值：两数相减的结果
+			*/
+			Sub: function (arg1, arg2) {
+				return Calc.Add(arg1, -Number(arg2), arguments[2]);
+			},
+			/*
+				函数：乘法函数，用来得到精确的乘法结果 
+				说明：函数返回较为精确的乘法结果。 
+				参数：arg1：第一个乘数；arg2第二个乘数；d要保留的小数位数（可以不传此参数，如果不传则不处理小数位数)
+				调用：Calc.Mul(arg1,arg2) 
+				返回值：两数相乘的结果
+			*/
+			Mul: function (arg1, arg2) {
+				var r1 = arg1.toString(), r2 = arg2.toString(), m, resultVal, d = arguments[2];
+				m = (r1.split(".")[1] ? r1.split(".")[1].length : 0) + (r2.split(".")[1] ? r2.split(".")[1].length : 0);
+				resultVal = Number(r1.replace(".", "")) * Number(r2.replace(".", "")) / Math.pow(10, m);
+				return typeof d !== "number" ? Number(resultVal) : Number(resultVal.toFixed(parseInt(d)));
+			},
+			/*
+				函数：除法函数，用来得到精确的除法结果 
+				说明：函数返回较为精确的除法结果。 
+				参数：arg1：除数；arg2被除数；d要保留的小数位数（可以不传此参数，如果不传则不处理小数位数)
+				调用：Calc.Div(arg1,arg2) 
+				返回值：arg1除于arg2的结果
+			*/
+			Div: function (arg1, arg2) {
+				var r1 = arg1.toString(), r2 = arg2.toString(), m, resultVal, d = arguments[2];
+				m = (r2.split(".")[1] ? r2.split(".")[1].length : 0) - (r1.split(".")[1] ? r1.split(".")[1].length : 0);
+				resultVal = Number(r1.replace(".", "")) / Number(r2.replace(".", "")) * Math.pow(10, m);
+				return typeof d !== "number" ? Number(resultVal) : Number(resultVal.toFixed(parseInt(d)));
+			},
+			/*
+				转换为金额显示
+			*/
+			toMoney(num){
+				return parseFloat(num).toFixed(2)
+			},
+			/*
+				转换为精度显示
+			*/
+			toNum(num,fixed){
+				if(fixed==undefined) fixed=2;
+				return parseFloat(num).toFixed(fixed)
+			},
+			/*
+				克隆对象
+			*/
+			clone: function (obj) {
+				var _this = this;
+				// Handle the 3 simple types, and null or undefined
+				if (null == obj || "object" != typeof obj) return obj;
+				// Handle Date
+				if (obj instanceof Date) {
+					var copy = new Date();
+					copy.setTime(obj.getTime());
+					return copy;
+				}
+				// Handle Array
+				if (obj instanceof Array) {
+					var copy = [];
+					for (var i = 0, len = obj.length; i < len; ++i) {
+						copy[i] = _this.clone(obj[i]);
+					}
+					return copy;
+				}
+				// Handle Object
+				if (obj instanceof Object) {
+					var copy = {};
+					for (var attr in obj) {
+						if (obj.hasOwnProperty(attr)) copy[attr] = _this.clone(obj[attr]);
+					}
+					return copy;
+				}
+				throw new Error("Unable to copy obj! Its type isn't supported.");
+			},
+			formatDate:function(time) {
+	            let date = new Date(time);
+	            let Y = date.getFullYear() + '-';
+	            let M = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) + '-' : date.getMonth() + 1 + '-';
+	            let D = date.getDate() < 10 ? '0' + date.getDate() + ' ' : date.getDate() + ' ';
+	            let h = date.getHours() < 10 ? '0' + date.getHours() + ':' : date.getHours() + ':';
+	            let m = date.getMinutes()  < 10 ? '0' + date.getMinutes() + ':' : date.getMinutes() + ':';
+	            let s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
+	            return Y + M + D + h + m + s;
+	        },
+		};
+        
+        
+        
+	
+    </script>
+
+    <!--首页组件-->
+    <script src="../../vue/component/erp/home/ruerpsidebar.js"></script>
+    <!-- 云数据组件 -->
+    <script src="../../vue/component/erp/cloud/caigOrg.js"></script>
+    <script src="../../vue/component/erp/cloud/gongys.js"></script>
+    <script src="../../vue/component/erp/cloud/shangp.js"></script>
+    <script src="../../vue/component/erp/mm/caigddLoad.js"></script>
+    <!--主应用-->
+    <script src="../../vue/component/erp/erp.js"></script>
+</body>
+</html>
+

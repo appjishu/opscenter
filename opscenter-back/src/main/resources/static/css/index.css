@@ -1,0 +1,152 @@
+body{
+	margin: 0;
+	padding: 0;
+}
+
+.iframeClass{
+	height: calc(100vh - 65px);
+}
+
+
+.navbar-brand img{
+	margin-left: 35px;
+}
+#homecontent{
+	padding: 0;
+    min-width: 0;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    -webkit-transition: .3s;
+    transition: .3s;
+
+}
+
+#homecontent .tab-content {
+    border: 0;
+    padding: 0;
+	margin: 0;
+    background: #fff;
+    height: calc(100vh - 65px);
+}
+
+#homecontent .tab-content .tab-pane {
+	padding: 0;
+	margin: 0;
+}
+
+#homecontent .nav-tabs {
+	background: #fff;
+	border: none;
+}
+
+#homecontent .nav-tabs .nav-link {
+	color: #999
+}
+
+#homecontent .nav-tabs .nav-link i {
+	padding: 0 6px
+}
+
+#homecontent .nav-tabs .nav-link:hover {
+	color: #4d4d4d;
+	border-color: transparent
+}
+
+#homecontent .nav-tabs .nav-link.active {
+	color: #4d4d4d;
+	background: #fff;
+	border-color: #dee2e6;
+	border-bottom: none
+}
+
+#homecontent .nav-tabs .nav-link.active:focus {
+	background: #fff;
+	border-color: #dee2e6;
+	border-bottom-color: #fff
+}
+
+#homecontent .nav-tabs .nav-link.active:hover {
+	border-color: #dee2e6
+}
+
+#homecontent .close-tab {
+    font-size: 10px;
+    position:absolute;
+    right: 5px;
+    top: 5px;
+    padding-left: 25px;
+    z-index: 100;
+    cursor: hand;
+    cursor: pointer;
+    color: #94A6B0;
+}
+
+#homecontent .nav-tabs {
+	position: relative;
+	height: 25px;
+}
+#homecontent .nav-tabs li{
+	position: relative;
+	padding: 2px 20px 0 0;
+	margin-left: 5px;
+}
+#homecontent .nav-tabs li .close-tab{
+	padding: 2px 0 0 2px;
+}
+#homecontent .nav-tabs li a{
+	padding: 0 5px;
+}
+#homecontent .nav-tabs li .active{
+	border-bottom: 1px solid #CCC;
+}
+
+#homecontent .nav-tabs .pull-right{
+	position: absolute;
+	border-bottom: 0;
+	padding-right: 0;
+	right: 0px;
+}
+
+#homecontent .iframeClass {
+    z-index: 1;
+    visibility: inherit;
+    width: 100%;
+    frameborder: 'no';
+    border: 0;
+    marginwidth: 0;
+    marginheight: 0;
+    scrolling-x: 'no';
+    scrolling-y: auto;
+    allowtransparency: true;
+    background: #fff;
+}
+
+.rightMenu {
+    position: absolute;
+    width: 120px;
+    z-index: 99;
+    display: none;
+    padding: 0;
+    font-size: .765625rem;
+    color: #999;
+    white-space: nowrap;
+    border: 1px solid #dee2e6;
+}
+.rightMenu li{
+   height: 10px;
+}
+.list-group-item {
+	position: relative;
+	display: block;
+	padding: .3rem 1rem;
+    background: #FFF;
+    text-align: left;
+    border: 0;
+}
+
+
+#homecontent .dragBack {
+    background-color: #ddd;
+}
+

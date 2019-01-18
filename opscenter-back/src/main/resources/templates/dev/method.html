@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title ></title>
+    <link rel="stylesheet" href="../vendor/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="../css/general.css">
+    <link rel="stylesheet" href="../css/cw.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../vendor/jquery-ui-1.12.1/jquery-ui.min.css">
+    <link rel="stylesheet" href="../vendor/jquery-ui-1.12.1/jquery-ui.structure.min.css">
+    <link rel="stylesheet" href="../vendor/jquery-ui-1.12.1/jquery-ui.theme.min.css">
+    <link rel="stylesheet" href="../vendor/select2/dist/css/select2.min.css">
+    <link rel="stylesheet" href="../vendor/grid-2.4.1/pqgrid.min.css">
+    <link rel="stylesheet" href="../vendor/codemirror-5.42.0/lib/codemirror.css">
+    <link rel="stylesheet" href="../vendor/codemirror-5.42.0/addon/hint/show-hint.css">
+    <link rel="stylesheet" href="../vendor/grid-2.4.1/themes/office/pqgrid.css" />
+    <link rel="stylesheet" href="../vendor/ingrid/ingrid.css">
+    <link rel="shortcut icon" href="/imgs/favicon.ico"/>
+   	<link rel="bookmark" href="/imgs/favicon.ico"/>
+</head>
+<body>
+	<div class="row grid_model">
+		 <div class="col-md-6 grid_left">
+		 	<div id="grid_editing"></div>
+		 </div>
+		 <div class="col-md-6 grid_right" >
+		 	<div class="grid_form" >
+		 		<div class="title" id="formTile"></div>
+		 		<form name="dataform" id="dataform"></form>
+		 		<!-- <textarea class="code" id="code"></textarea> --> 
+		 	</div>
+		 </div>
+	</div>
+	
+	<script src="../vendor/jquery/jquery2.2.4.min.js"></script>
+	<script src="../vendor/popper.js/popper.min.js"></script>
+	<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../vendor/jquery/jquery.nicescroll.min.js"></script>
+	<script src="../vendor/jquery/jquery-ui.min.js"></script>
+	<script src="../vendor/jquery/sugar.min.js"></script>
+	<script src="../vendor/jquery/jquerymy-1.2.14.min.js"></script>
+	<script src="../vendor/select2/dist/js/select2.full.min.js"></script>
+	<script src="../vendor/codemirror-5.42.0/lib/codemirror.js"></script>
+	<script src="../vendor/codemirror-5.42.0/addon/hint/show-hint.js"></script>
+	<script src="../vendor/codemirror-5.42.0/mode/sql/sql.js"></script>
+	<script src="../vendor/codemirror-5.42.0/addon/hint/sql-hint.js"></script>
+	<script src="../vendor/grid-2.4.1/pqgrid.dev.js"></script>
+	<script src="../vendor/grid-2.4.1/localize/pq-localize-zh.js"></script>
+	<script src="../vendor/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+	<script src="../vendor/jquery-validation-1.14.0/dist/additional-methods.min.js"></script>
+	<script src="../vendor/jquery-validation-1.14.0/dist/localization/messages_zh.min.js"></script>
+	
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	  <script src="../vendor/html5shiv.min.js"></script>
+	  <script src="../vendor/respond.min.js"></script>
+	<![endif]-->
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		
+		    var map = [[${map}]];
+		    console.log(map);
+		
+		/*]]>*/
+	</script>
+	<script type="text/javascript">
+	var row = {};
+	var title = ["新增功能","编辑功能"];
+	var editStatus = 0;
+	var dialog = window.top.dialog;
+	dialog.tips = function (content, time) {
+	    return dialog({
+	        id: 'Tips',
+	        title: false,
+	        cancel: false,
+	        fixed: true,
+	        lock: true
+	    })
+	    .content('<div style="padding: 0 1em;">' + content + '</div>')
+	    .time(time || 1);
+	};
+	function message(changes){
+		var d ;
+		var content ;
+    	if(changes.code == 200){
+    		content = '<span style="color:green"><i class="icon icon-check" style="display:inline-block;margin-right:10px;"></i>操作成功 !</span>';
+    	}else{
+    		content = '<span style="color:red"><i class="icon icon-close" style="display:inline-block;margin-right:10px;"></i>操作失败: '+changes.message+' !</span>';
+    	}
+    	var d = dialog({
+    		content: content
+    	});
+    	d.show();
+    	setTimeout(function () {
+    		d.close().remove();
+    	}, 2000);
+	}
+	function clearRow(){
+		that = this;
+	    if(that.row && typeof that.row==="object"){
+	        for(key in that.row){
+	        	that.row[key] = "";
+	        }
+	    }
+	    row.methodId = 0;
+	    row.poolName = "normal";
+	    row.sqlType = "LISTONLY";
+	    row.rsStatus = "true";
+	}
+	
+	function setRow(obj){
+		that = this;
+	    if(obj && typeof obj==="object"){
+	        for(key in obj){
+	        	that.row[key] = obj[key]
+	        }
+	    }
+	}
+	
+	var manifest = {
+			params:{delay:10},
+			id:"en.AllControls",
+			init: function ($form, form) {
+				var that = this;
+				that.HTML($form);
+			},
+			ui:{
+				"#methodName":{
+					bind:"methodName",
+					check:/^\S{6}.*$/i,
+				    error:"必填"
+				},
+				"#poolName" :{
+					bind:"poolName",
+				},
+				"#outParam" :"outParam",
+				"#sqlType":{
+					bind:"sqlType",
+				},
+				"#rsStatus" :{
+					bind:"rsStatus",
+				},
+				"#sql" : {
+					bind:"sql",
+					init: function($ctrl) {
+						editor =  CodeMirror.fromTextArea($ctrl[0], {
+					       lineNumbers: true,
+					       matchBrackets: true,
+					       continueComments: "Enter",
+					       mode:"text/x-mssql",
+					       extraKeys: { 
+					    	   	"Ctrl": "autocomplete",
+					    	   	"Ctrl-Q": "toggleComment"
+					       }
+					     });
+					}
+				}
+			},
+			HTML: function ($form) {
+				$form.formgen([
+					{
+						row:"100%",// label:"130px", 
+					 	rowCss:"my-row cb pt5 pb5", 
+					 	labelCss:"my-label col-sm-3"
+					},	
+					//['${keymap.zhongxin}', 'sel#zhongxin.w200.h25', rulebookJson.data.zhongxin],
+					['功能名称', 'inp#methodName.h25.col-sm-7',"span.my-error-tip.col-sm-2", {plc:""}],
+					['数据源', 'sel#poolName.h25.col-sm-7.inpborder', {vals:map.poolList},{plc:""}],
+					['输出参数', 'inp#outParam.h25.col-sm-7', {plc:""}],
+					['操作类型', 'sel#sqlType.h25.col-sm-7.inpborder', {vals:map.sqlType}, {plc:""}],
+					['结果集状态', 'sel#rsStatus.h25.col-sm-7.inpborder', {vals:map.booleanList}, {plc:""}],
+					['功能代码', '<div class="col-sm-7 dib vat mt5" style="border: 1px solid #C1D0DA;padding:0">','txt#sql.h25', '</div>', {plc:""}],
+					[' ', '<input type="button" onclick="submitRow()" value = "提交" class="w100 fs90">', {plc:""}]
+				]);
+			}
+		};
+	function submitRow(){
+		that = this;
+		var valid = $form.my("valid");
+		if(!valid){
+			var changes = {};
+			changes.code = 500;
+			changes.message = "表单验证失败";
+			message(changes);
+			return;
+		}
+		
+		
+		switch(editStatus){
+			case 0:
+			 $.ajax({
+                    dataType: "json",
+                    type: "POST",
+                    async: true,
+                    url: "/method/createmethod",                                              
+                    data: that.row,
+                    success: function (changes) {
+                    	message(changes);
+                    	$grid.pqGrid("refreshDataAndView");
+                    }
+                });
+				break;
+			case 1:
+				$.ajax({
+                    dataType: "json",
+                    type: "POST",
+                    async: true,
+                    url: "/method/updatemethod",
+                    data : that.row,
+                    success: function (changes) {
+                    	message(changes);
+                    	$grid.pqGrid("refreshDataAndView");
+                    }
+                });
+				break;
+		}
+	}
+	 $(function () {
+			$('#grid_editing').bind('keyup', function(event) {
+		        if (event.keyCode == "13") {
+		            //回车执行查询
+		        	searchChanges();
+		        }
+		    });
+			 function searchChanges(){
+				 $grid.pqGrid("refreshDataAndView");
+			 }
+			 function addChanges(){
+				editStatus = 0;
+				$("#formTile").html(title[editStatus]);
+				clearRow();
+				row.methodId = 0;
+            	$form.my("data",row);
+			 }
+			 function deleteChanges(){
+                 var selarray = $grid.pqGrid('selection', { type: 'row', method: 'getSelection' }),
+				 ids = [];
+	             for (var i = 0, len = selarray.length; i < len; i++) {
+	                 var rowData = selarray[i].rowData;
+	                 ids.push(rowData.methodId);
+	             }
+	             console.info(ids);
+	           	 $.ajax({
+                    dataType: "json",
+                    type: "POST",
+                    async: true,
+                    url: "/method/deletemethod",
+                    data : {methodIds:ids.join(',')},
+                    success: function (changes) {
+                    	$grid.pqGrid("refreshDataAndView");
+                    }
+                }); 
+			 }
+	        //called when save changes button is clicked.
+	        function saveChanges() {
+	            var grid = $grid.pqGrid('getInstance').grid;
+
+	            //debugger;
+	            //attempt to save editing cell.
+	            if (grid.saveEditCell() === false) {
+	                return false;
+	            }
+
+	            var isDirty = grid.isDirty();
+	            if (isDirty) {
+	                //validate the new added rows.                
+	                var addList = grid.getChanges().addList;
+	                //debugger;
+	                for (var i = 0; i < addList.length; i++) {
+	                    var rowData = addList[i];
+	                    var isValid = grid.isValid({ "rowData": rowData }).valid;
+	                    if (!isValid) {
+	                        return;
+	                    }
+	                }
+	                var changes = grid.getChanges({ format: "byVal" });
+
+	                //post changes to server 
+	                $.ajax({
+	                    dataType: "json",
+	                    type: "POST",
+	                    async: true,
+	                    beforeSend: function (jqXHR, settings) {
+	                        grid.showLoading();
+	                    },
+	                    url: "/pro/products/batch", //for ASP.NET, java                                                
+	                    data: { list: JSON.stringify(changes) },
+	                    success: function (changes) {
+	                        //debugger;
+	                        grid.commit({ type: 'add', rows: changes.addList });
+	                        grid.commit({ type: 'update', rows: changes.updateList });
+	                        grid.commit({ type: 'delete', rows: changes.deleteList });
+	                        grid.history({ method: 'reset' });
+	                    },
+	                    complete: function () {
+	                        grid.hideLoading();
+	                    }
+	                });
+	            }
+	        }
+	        var obj = {
+	        	height:'100% - 4px',
+	        	wrap: false,
+	            hwrap: false,
+	            resizable: true,
+	            rowBorders: false,
+	            virtualX: false,
+	            filterModel: { header: true, type: 'remote' },
+	            trackModel: { on: true }, //to turn on the track changes.            
+	            toolbar: {
+	                items: [{ type: 'button', icon: 'ui-icon-plus', label: '新增', cls: 'changes', listener:{
+		                		"click": function (evt, ui) {
+		                            addChanges();
+		                        }
+		                       }
+		                    },
+		                    { type: 'button', icon: 'ui-icon-trash', label: '删除', cls: 'changes', listener:{
+		                		"click": function (evt, ui) {
+		                            deleteChanges();
+		                        }
+		                       }
+		                    },
+		                    { type: 'button', icon: 'ui-icon-refresh', label: '刷新', cls: 'changes', listener:{
+	                		"click": function (evt, ui) {
+	                            searchChanges();
+	                        }
+	                       }
+	                    }
+	                ]
+	            },
+	            swipeModel: { on: false },
+	            editModel: {
+	                saveKey: $.ui.keyCode.ENTER
+	            },
+	            editor: {
+	                select: true
+	            },
+	            title: "功能列表",
+	            history: function (evt, ui) {
+	                var $grid = $(this);
+	                if (ui.canUndo != null) {
+	                    $("button.changes", $grid).button("option", { disabled: !ui.canUndo });
+	                }
+	                if (ui.canRedo != null) {
+	                    $("button:contains('Redo')", $grid).button("option", "disabled", !ui.canRedo);
+	                }
+	                $("button:contains('Undo')", $grid).button("option", { label: 'Undo (' + ui.num_undo + ')' });
+	                $("button:contains('Redo')", $grid).button("option", { label: 'Redo (' + ui.num_redo + ')' });
+	            },
+	            colModel: [
+	            	 { title: "", dataIndx: "state", maxWidth: 30, minWidth: 30, align: "center",
+	                     cb: { header: true, all: false },
+	                     type: 'checkBoxSelection', cls: 'ui-state-default', resizable: false, sortable: false, editable: false
+	                 },
+	            	{ title: "功能ID", dataType: "integer", dataIndx: "methodId", editable: false, width: 80 },
+	            	{ title: "功能名称", dataType: "string", dataIndx: "methodName", editable: false, width: 80,refresh:false,
+	            		filter: { type: 'textbox', condition: 'begin', listeners: ['change'] },
+	                    validations: [
+	                        { type: 'minLen', value: 1, msg: "Required" },
+	                        { type: 'maxLen', value: 40, msg: "length should be <= 40" }
+	                    ]	
+	            	},
+	            	{ title: "数据源", dataType: "string", dataIndx: "poolName", editable: false, width: 80,refresh:false,
+	            		filter: { type: 'textbox', condition: 'begin', listeners: ['change'] },
+	                    validations: [
+	                        { type: 'minLen', value: 1, msg: "Required" },
+	                        { type: 'maxLen', value: 40, msg: "length should be <= 40" }
+	                    ]	
+	            	},
+	            	{ title: "输出参数", dataType: "string", dataIndx: "outParam", editable: false, width: 80 },
+	            	{ title: "操作类型", dataType: "string", dataIndx: "sqlType", editable: false, width: 80 },
+	            	{ title: "是否有结果集", dataType: "integer", dataIndx: "rsStatus", editable: false, width: 80 },
+	            ],
+	            pageModel: { type: "remote", rPP: 20 },
+	            dataModel: {
+	                dataType: "JSON",
+	                location: "remote",
+	                recIndx: "methodId",
+	                sortIndx: ["methodId"],
+	                sortDir: ["down"],
+	                getUrl: function(){
+	                    return { url: "/grid", data: {type:"autoGrid",pq_method:"methodList"} }
+	                },
+	                getData: function (response) {
+	                	console.info(response);
+	                    return response;
+	                }
+	            },
+	            change: function (evt, ui) {                
+	                //refresh the filter.
+	                if (ui.source != "add") {
+	                    $grid.pqGrid("filter", { oper: 'add', data: [] });
+	                }
+	            },
+	            create: function( event, ui ) {
+	            },
+	            load: function( event, ui ) {
+	            },
+	            rowDblClick: function( event, ui ) {
+	            	editStatus = 1
+	            	$("#formTile").html(title[editStatus]);
+	            	//post changes to server 
+	                $.ajax({
+	                    dataType: "json",
+	                    type: "GET",
+	                    async: true,
+	                    url: "/method/querymethod",                                              
+	                    data: {methodName:ui.rowData.methodName},
+	                    success: function (changes) {
+	                    	setRow(changes)
+	    	            	$form.my("data",row);
+	                    }
+	                });
+	            	
+	            },
+	            refresh: function () {
+	                $("#grid_editing").find("button.delete_btn").button({ icons: { primary: 'ui-icon-scissors'} })
+	                .unbind("click")
+	                .bind("click", function (evt) {
+	                    var $tr = $(this).closest("tr");
+	                    var obj = $grid.pqGrid("getRowIndx", { $tr: $tr });
+	                    var rowIndx = obj.rowIndx;
+	                    $grid.pqGrid("addClass", { rowIndx: rowIndx, cls: 'pq-row-delete' });
+
+	                    var ans = window.confirm("Are you sure to delete row No " + (rowIndx + 1) + "?");
+	                    $grid.pqGrid("removeClass", { rowIndx: rowIndx, cls: 'pq-row-delete' });
+	                    if (ans) {
+	                        $grid.pqGrid("deleteRow", { rowIndx: rowIndx });
+	                    }
+	                });
+	            },
+	        };
+	        $grid = $("#grid_editing").pqGrid(obj);
+	        $form = $("#dataform").my(manifest,row);
+	        //gridForminit();
+	       // $( "#grid_editing" ).pqGrid( "option", "height", '100%'-2 );
+	       
+	        $(".grid_form").niceScroll({
+			    touchbehavior:false,     //是否是触摸式滚动效果
+			    cursorcolor:"#000",     //滚动条的颜色值
+			    cursoropacitymax:0.2,   //滚动条的透明度值
+			    cursorwidth:5,         //滚动条的宽度值
+			    autohidemode:false,      //滚动条是否是自动隐藏，默认值为 true
+			});
+	        $("#dataform").validate({
+	    	    rules: {
+	    	      methodName: {
+	    	        required: true,
+	    	        minlength: 2
+	    	      }
+	    	    },
+	    	    messages: {
+	    	    	methodName: "请输入数据源",
+	    	    }
+	    	});
+	        clearRow();
+	    });
+	</script>
+</body>
+</html>

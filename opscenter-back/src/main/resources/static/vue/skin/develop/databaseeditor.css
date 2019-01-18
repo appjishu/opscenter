@@ -1,0 +1,388 @@
+
+.databaseeditor{
+}
+
+.databaseeditor .datasource{
+    background: rgb(240, 240, 240);
+    height: calc(100vh - 45px);
+    border-radius: 5px 0 0 5px ;
+}
+
+.databaseeditor .table-list{
+    background: rgb(250, 250, 250);
+    height: calc(100vh - 45px);
+    margin-right: 5px;
+    border-radius: 0 5px 5px 0 ;
+}
+
+.databaseeditor .form-editor{
+    background: rgb(250, 250, 250);
+    height: calc(100vh - 45px);
+    border-radius: 5px 5px 5px 5px ;
+}
+
+.databaseeditor .title{
+    height: 30px;
+    line-height: 1.7;
+    width: 100%;
+    background: rgb(0,94,127);
+    color: rgb(255,255,255);
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px 5px 0 0 ;
+    padding: 4px 6px 4px 11px;
+}
+.databaseeditor .datasource .title{
+    background: rgb(0,49,80);
+    border-radius:  5px 0 0 0 ;
+}
+.databaseeditor .datasource .title .el-button--text, .databaseeditor .table-list .title .el-button--text{
+    color:rgb(255,255,255);
+}
+
+.databaseeditor .table-list .title{
+    border-radius:  0 5px 0 0 ;
+}
+
+.databaseeditor .option{
+    position: relative;
+    padding: 5px;
+    height: 35px;
+    overflow: hidden;
+}
+
+.databaseeditor .btn{
+    cursor: pointer;
+    height: 25px;
+    line-height: 2;
+    width: 25px;
+    padding: 0;
+    font-size:12px;
+    background: rgb(255,255,255);
+    border: 1px solid rgb(0,94,127);
+    color: rgb(0,94,127);
+    position: relative;
+    padding-top:14px;
+}
+
+.databaseeditor .btn:hover{
+    background: rgb(0,94,127);
+    color: rgb(255,255,255);
+}
+.databaseeditor .btn i{
+    display: block;
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    top:5px;
+    left:6px;
+}
+
+
+
+.databaseeditor .list{
+    height: calc(100vh - 110px);
+    padding: 1px;
+}
+.databaseeditor .form-editor .list{
+    height: calc(100vh - 110px);
+    padding: 1px;
+}
+
+.databaseeditor .datasource .el-card__body{
+    padding: 5px;
+    border-radius: 0;
+}
+
+.databaseeditor .table-list .el-card__body{
+    padding: 5px;
+    border-radius: 0;
+}
+.background-l1{
+    background: rgb(255, 255, 255);
+}
+.background-l2{
+    background: rgb(250, 250, 250);
+}
+.background-l3{
+    background: rgb(240, 240, 240);
+}
+
+.databaseeditor .el-card{
+    border: 0;
+    border-radius: 0;
+    margin-top: 2px;
+    cursor: pointer;
+}
+
+.databaseeditor .el-button--text{
+    width: 20px;
+    text-align: center;
+    outline: none;
+    color: rgb(0,94,127);
+}
+
+.databaseeditor .el-card.is-always-shadow{
+    -webkit-box-shadow: 0 0 0;
+    box-shadow: 0 0 0;
+
+}
+.databaseeditor .right-btn{
+    float: right; 
+    padding: 3px 0;
+    margin-left: 2px;
+}
+.databaseeditor .left-btn{
+    float: left; 
+    padding: 3px 0;
+    color: rgb(255,255,255);
+}
+.databaseeditor .el-button+.el-button{
+    margin: 0;
+}
+
+
+.databaseeditor .el-tabs__item {
+    padding: 0px;
+    height: 20px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    line-height: 20px;
+    display: inline-block;
+    list-style: none;
+    font-size: 14px;
+    font-weight: 500;
+    position: relative;
+    color: rgb(150,150,150);
+}
+.databaseeditor .el-tabs__item.is-active{
+    color:rgb(255, 255, 255);
+}
+.databaseeditor .el-tabs--card>.el-tabs__header .el-tabs__item {
+    border: 0;
+    padding-right:5px;
+}
+.databaseeditor .el-tabs--card>.el-tabs__header .el-tabs__nav{
+    border:0;
+}
+.databaseeditor .el-tabs--card>.el-tabs__header{
+    border: 0;
+    
+}
+.databaseeditor .el-tabs__nav-wrap.is-scrollable{
+    padding:0;
+}
+.databaseeditor .el-tabs--top.el-tabs--card .el-tabs__item:last-child{
+    padding:0;
+}
+.databaseeditor .el-tabs--card{
+    width:140px;
+    display: inline-block;
+}
+@media ( max-width : 1100px) {
+	.form-editor {
+        position: absolute;
+		display: block;
+        flex: 100%;
+        max-width:100%;
+        padding: 0;
+    }
+    
+    .datasource.el-col-4{
+        width:40%;
+    }
+    .table-list.el-col-6{
+        width:60%;
+    }
+    .form-editor.el-col-14{
+        width:100%;
+    }
+    .hidden{
+        z-index: -1;
+    }
+    .table-list .show-form{
+        display: inline-block;
+    }
+    .form-editor .show-form{
+        display: inline-block;
+    }
+    .form-editor .hidden-option{
+        display: inline-block;
+    }
+    .projecteditor-content .fileeditor{
+        margin-left: 5px;
+    }
+}
+
+.form-editor .CodeMirror {
+    height: calc(100vh - 115px);
+}
+.databaseeditor .el-popper .vue-codemirror-wrap{
+    height: 50px;
+}
+.databaseeditor .el-popper .CodeMirror {
+    height: 100px;
+    width: 100px;
+}
+
+.databaseeditor .el-popper .btn{
+    cursor: pointer;
+    height: 25px;
+    line-height: 2;
+    width: 25px;
+    padding: 0;
+    font-size:12px;
+    background: rgb(255,255,255);
+    border: 1px solid rgb(0,94,127);
+    color: rgb(0,94,127);
+    position: relative;
+    padding-top:14px;
+}
+
+.databaseeditor .el-popper .btn:hover{
+    background: rgb(0,94,127);
+    color: rgb(255,255,255);
+}
+.databaseeditor .el-popper .btn i{
+    display: block;
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    top:5px;
+    left:6px;
+}
+
+.databaseeditor .el-popper .el-input__inner{
+    -webkit-appearance: none;
+    background-color: #fff;
+    background-image: none;
+    border-radius: 0;
+    border: 1px solid #dcdfe6;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #606266;
+    display: inline-block;
+    font-size: inherit;
+    height: 25px;
+    line-height: 25px;
+    outline: 0;
+    margin:5px 0 0 0;
+    padding: 0 15px;
+    -webkit-transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+    transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+    width: 270px;
+}
+
+.databaseeditor .el-popper .el-textarea__inner {
+    display: block;
+    resize: vertical;
+    padding: 5px 15px;
+    line-height: 1.5;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-size: inherit;
+    color: #606266;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #dcdfe6;
+    border-radius: 0;
+    -webkit-transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+    transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+    width: 270px;
+    margin:5px 0 0 0;
+}
+
+.databaseeditor .el-popper .el-input__icon{
+    height: 35px;
+    line-height: 35px;
+}
+
+.databaseeditor .el-tabs--top.el-tabs--card .el-tabs__item:nth-child(2){
+    padding-left: 0;
+}
+
+.databaseeditor .el-input-group__append, .el-input-group__prepend {
+    background-color: rgb(255,255,255);
+    color: #909399;
+    vertical-align: middle;
+    display: table-cell;
+    position: relative;
+    border: 0;
+    border-radius: 0;
+    padding: 0 20px;
+    width: 1px;
+    white-space: nowrap;
+}
+
+.databaseeditor .el-input__inner {
+    margin-left: 1px;
+    -webkit-appearance: none;
+    background-color: #fff;
+    background-image: none;
+    border-radius: 0;
+    border: 0px ;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #606266;
+    display: inline-block;
+    font-size: inherit;
+    height: 35px;
+    line-height: 35px;
+    outline: 0;
+    padding: 5px 15px;
+    -webkit-transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+    transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+    width: 100%;
+    font-size:12px;
+    
+}
+.databaseeditor .el-table{
+    border-spacing: 0;
+  border-collapse:separate;
+}
+.databaseeditor .el-table td, .el-table th{
+    padding:0;
+}
+.databaseeditor .el-table__row .el-input__inner {
+    margin-left: 1px;
+    -webkit-appearance: none;
+    background-color: #fff;
+    background-image: none;
+    border-radius: 0;
+    border: 0px ;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #606266;
+    display: inline-block;
+    font-size: inherit;
+    height: 20px;
+    line-height: 20px;
+    outline: 0;
+    padding: 0;
+    -webkit-transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+    transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+    width: 100%;
+}
+
+.tableForm .vue-codemirror-wrap{
+    height: calc(100vh - 295px);
+}
+.tableForm .CodeMirror {
+    height: calc(100vh - 295px);
+}
+
+.tableForm .el-input__inner{
+    padding:2px 5px;
+    height: 20px;
+    line-height: 20px;
+    font-size:12px;
+    
+}
+
+.tableForm .el-table{
+	font-size:12px;
+}
+.tableForm .el-input__icon{
+    line-height: 20px;
+}
+

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title ></title>
+    <link rel="stylesheet" href="../vendor/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="../css/general.css">
+    <link rel="stylesheet" href="../css/cw.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../vendor/jquery-ui-1.12.1/jquery-ui.min.css">
+    <link rel="stylesheet" href="../vendor/jquery-ui-1.12.1/jquery-ui.structure.min.css">
+    <link rel="stylesheet" href="../vendor/jquery-ui-1.12.1/jquery-ui.theme.min.css">
+    <link rel="stylesheet" href="../vendor/select2/dist/css/select2.min.css">
+    <link rel="stylesheet" href="../vendor/grid-2.4.1/pqgrid.min.css">
+    <link rel="stylesheet" href="../vendor/codemirror-5.42.0/lib/codemirror.css">
+    <link rel="stylesheet" href="../vendor/codemirror-5.42.0/addon/hint/show-hint.css">
+    <link rel="stylesheet" href="../vendor/grid-2.4.1/themes/office/pqgrid.css" />
+    <link rel="stylesheet" href="../vendor/zTree_v3/css/metroStyle/metroStyle.css" />
+    <link rel="stylesheet" href="../vendor/ingrid/ingrid.css">
+    <link rel="shortcut icon" href="/imgs/favicon.ico"/>
+   	<link rel="bookmark" href="/imgs/favicon.ico"/>
+   	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="../vendor/html5shiv.min.js"></script>
+	<script src="../vendor/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+	<div class="row grid_model">
+		 <div class="col-md-4 grid_left">
+		 	<div class="grid_form">
+		 		<div class="title" id="formTile">页面编辑器</div>
+		 		<div class="tree_opt">
+					<button type="button" id="add">
+						 <span class="ui-button-icon-primary ui-icon ui-icon-plus"></span>
+						 <span class="ui-button-text">新建</span>
+					</button>
+					<button type="button" id="save">
+						 <span class="ui-button-icon-primary ui-icon ui-icon-disk"></span>
+						 <span class="ui-button-text">保存</span>
+					</button>
+					<button type="button" id="refresh">
+						 <span class="ui-button-icon-primary ui-icon ui-icon-refresh"></span>
+						 <span class="ui-button-text">刷新</span>
+					</button>
+					<button type="button" id="upload">
+						 <span class="ui-button-icon-primary ui-icon ui-icon-arrowreturn-1-n"></span>
+						 <span class="ui-button-text">上传</span>
+					</button>
+					<button type="button" id="copy">
+						 <span class="ui-button-icon-primary ui-icon ui-icon-copy"></span>
+						 <span class="ui-button-text">复制</span>
+					</button>
+					<button type="button" id="cut">
+						 <span class="ui-button-icon-primary ui-icon ui-icon-scissors"></span>
+						 <span class="ui-button-text">剪切</span>
+					</button>
+					<button type="button" id="paste">
+						 <span class="ui-button-icon-primary ui-icon ui-icon-clipboard"></span>
+						 <span class="ui-button-text">粘贴</span>
+					</button>
+				</div>
+				<div class="tree_content" id="tree_content">
+					<ul id="templateList" class="ztree"></ul>
+				</div>
+			</div>
+		</div>
+		 <div class="col-md-8 grid_right" >
+		 	<div class="grid_form edit-wrapper" >
+				<div class="panel-wrapepr">
+					<ul class="edit-panel">
+					</ul>
+				</div>
+				<div class="edit-content" id="edit-content">
+				</div>
+		 	</div>
+		 </div>
+	</div>
+	
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		    var map = [[${map}]];
+		/*]]>*/
+	</script>
+	<script src="../vendor/jquery/jquery2.2.4.min.js"></script>
+	<script src="../vendor/jquery/ajaxupload.js"></script>
+	<script src="../vendor/popper.js/popper.min.js"></script>
+	<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../vendor/jquery/jquery.nicescroll.min.js"></script>
+	<script src="../vendor/jquery/jquery-ui.min.js"></script>
+	<script src="../vendor/jquery/sugar.min.js"></script>
+	<script src="../vendor/jquery/jquerymy-1.2.14.min.js"></script>
+	<script src="../vendor/zTree_v3/js/jquery.ztree.all.min.js"></script>
+	<script src="../vendor/select2/dist/js/select2.full.min.js"></script>
+	<script src="../vendor/codemirror-5.42.0/lib/codemirror.js"></script>
+	<script src="../vendor/codemirror-5.42.0/addon/hint/xml-hint.js"></script>
+	<script src="../vendor/codemirror-5.42.0/addon/hint/javascript-hint.js"></script>
+	<script src="../vendor/codemirror-5.42.0/addon/hint/css-hint.js"></script>
+	<script src="../vendor/codemirror-5.42.0/addon/hint/html-hint.js"></script>
+	<script src="../vendor/codemirror-5.42.0/mode/xml/xml.js"></script>
+	<script src="../vendor/codemirror-5.42.0/mode/javascript/javascript.js"></script>
+	<script src="../vendor/codemirror-5.42.0/mode/css/css.js"></script>
+	<script src="../vendor/codemirror-5.42.0/mode/htmlmixed/htmlmixed.js"></script>
+	<script src="../vendor/codemirror-5.42.0/addon/selection/selection-pointer.js"></script>
+	<script src="../vendor/codemirror-5.42.0/addon/hint/show-hint.js"></script>
+	<script src="../vendor/codemirror-5.42.0/mode/sql/sql.js"></script>
+	<script src="../vendor/codemirror-5.42.0/addon/hint/sql-hint.js"></script>
+	<script src="../vendor/grid-2.4.1/pqgrid.dev.js"></script>
+	<script src="../vendor/grid-2.4.1/localize/pq-localize-zh.js"></script>
+	<script src="../vendor/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+	<script src="../vendor/jquery-validation-1.14.0/dist/additional-methods.min.js"></script>
+	<script src="../vendor/jquery-validation-1.14.0/dist/localization/messages_zh.min.js"></script>
+	<script src="../vendor/ingrid/fileZtree.js"></script>
+	<script src="../vendor/ingrid/fileEditor.js"></script>
+	<script src="../vendor/ingrid/dev/projecteditor.js"></script>
+</body>
+</html>

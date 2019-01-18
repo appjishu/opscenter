@@ -1,0 +1,20 @@
+${appname}
+	<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<div class="today"></div>
+<script>
+	var json =  new Object();
+	json.method = "develop.user.load.2";
+	json.hasrs = "true";
+	json.user_name="yaogs"
+	$.post("/rest",json,callback1);
+	function callback1(data){
+		console.info(data);
+		var json = $.parseJSON(data.body);
+		var data = json.rapid_rest_response.rows[0]
+		console.log(data)
+	}
+	
+	sssss
+	
+	
+</script>

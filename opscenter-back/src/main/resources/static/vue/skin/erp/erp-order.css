@@ -1,0 +1,628 @@
+/**单据列表总体设计*/
+*{
+	font-size: 12px;
+}
+.order-list{
+	position: relative;
+	background: rgb(248,248,248);
+	height: calc(100vh);.form-option.form-option
+}
+
+.order-list .filter{
+ 	position: relative;
+ 	opacity:0.4;
+	filter:alpha(opacity=40); /* 针对 IE8 以及更早的版本 */
+ }
+ 
+/**单据列表标题总体设计*/
+.order-list .order-list-title{
+	height: 40px;
+	line-height: 40px;
+	padding-left: 30px;
+}
+.order-list .order-list-title .el-button{
+	margin: 0;
+	outline: none;
+	border: 0;
+	background: rgb(0,205,255);
+	color:rgb(255,255,255);
+	height: 30px;
+	width: 60px;
+}
+.order-list .order-list-title .el-input__inner{
+	margin: 0;
+	outline: none;
+	border: 0;
+	background: rgb(255,255,255);
+	height: 30px;
+}
+.order-list .order-list-title .normal{
+	background: rgb(240,240,240);
+	color:rgb(0,0,0);
+	float:right;
+	margin-top:5px;
+	margin-right: 5px;
+	width: 50px;
+	padding: 10px 0;
+}
+
+.order-list .order-list-title  .el-button span{
+	display: inline-block;
+	margin-left: 5px;
+}
+.order-list .order-list-title .el-input{
+	width: calc(100% - 215px);
+}
+
+/**单据列表内容总体设计*/
+.order-list .order-list-content{
+	height: calc(100vh - 45px);
+}
+
+.sub.order-list-content{
+	height: calc(100vh - 90px);
+}
+.order-list .order-list-content .el-card{
+	padding: 0;
+	margin: 0px 5px 5px 5px;
+	border: 0;
+	border-radius: 0;
+	-webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, .1);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, .1);
+    cursor: pointer;
+}
+
+
+
+/**表单总体设计*/
+.form-parent.hidden{
+	z-index:-1;
+}
+.form-parent{
+   background: rgb(255,255,255);
+    height: calc(100vh);
+}
+
+
+.grid-content{
+	position: relative;
+}
+.form-parent .order-form-title{
+	height: 40px;
+	line-height: 40px;
+	background: rgb(255,255,255);
+	padding:0 10px;
+	font-weight: bold;
+	color: rgb(0,202,255);
+	padding-left: 30px;
+}
+.form-parent .order-form-title-content{
+	display: inline-block;
+	margin-left: 10px;
+	color:rgb(0,0,0);
+	font-size: 16px;
+	font-weight: bold;
+}
+.form-parent .order-form-title .normal{
+	float:left;
+	margin-top: 5px;
+	margin-right: 5px;
+}
+
+.form-parent .order-form-title  .el-button span{
+	display: inline-block;
+	margin-left: 5px;
+}
+
+.form-parent .order-form-content{
+	padding:5px 11px;
+	height: calc(100vh - 95px);
+	position: relative;
+}
+.form-parent .order-form-content-parent{
+	height: calc(100vh - 155px);
+}
+.form-parent .order-form-btn{
+	padding: 10px;
+	text-align: right;
+}
+
+.form-parent .el-form-item--small.el-form-item{
+	margin-bottom: 5px;
+}
+
+.form-parent  .el-radio.is-bordered+.el-radio.is-bordered{
+	margin: 0;
+}
+.form-parent .el-radio--small.is-bordered{
+	width: 70px;
+}
+.form-parent  .el-radio--small.is-bordered {
+    padding: 8px 0 0 2px;
+    border-radius: 3px;
+    height: 32px;
+}
+.form-parent .el-radio__label{
+	padding-left: 2px;
+}
+
+
+.form-parent   .el-button{
+	margin: 0;
+	outline: none;
+	border: 0;
+	background: rgb(0,205,255);
+	color:rgb(255,255,255);
+	height: 30px;
+	width: 80px;
+}
+
+
+.form-parent  .el-input__inner{
+	margin: 0;
+	outline: none;
+	border: 0;
+	border: 1px solid rgb(235,239,246);
+	background: rgb(255,255,255);
+	height: 30px;
+}
+
+.form-parent  .el-textarea__inner{
+	margin: 0;
+	outline: none;
+	border: 0;
+	border: 1px solid rgb(235,239,246);
+	background: rgb(255,255,255);
+	height: 30px;
+}
+
+.form-parent  .el-table{
+	background: rgb(250,250,250);
+	border-radius: 5px;
+}
+
+.form-parent  .el-table .el-input__inner{
+	background: rgb(255,255,255);
+	border-radius: 5px;
+	padding: 0 10px;
+	height: 20px;
+	line-height: 20px;
+	text-align: right;
+}
+
+.form-parent   .el-table th{
+	background: rgb(240,240,240);
+	padding: 0;
+}
+
+.form-parent  .el-table tr{
+	background: rgb(252,252,252);
+	padding: 0;
+}
+.form-parent  .el-table__header-wrapper{
+	background: rgb(240,240,240);
+}
+
+.form-parent  .el-radio{
+	background: rgb(245,245,245);
+}
+
+.form-parent .el-radio.is-bordered{
+	border-color: rgb(240,240,240);
+	background: rgb(255,255,255)
+}
+
+.form-parent .el-radio.is-bordered.is-checked{
+	border-color: rgb(255,255,255);
+	background: rgb(240,240,240)
+}
+.order-form-step{
+}
+
+.order-form-step .el-step.is-horizontal .el-step__line {
+    height: 2px;
+    top: 15px;
+    left: 0;
+    right: 0;
+}
+.order-form-step .el-step__title {
+    height: 15px;
+    line-height: 15px;
+    font-size: 12px;
+}
+.opt-step{
+	height: 55px;
+	margin: 5px 20px;
+}
+
+.opt-step .el-step.is-horizontal .el-step__line {
+    height: 2px;
+    top: 15px;
+    left: 0;
+    right: 0;
+}
+.opt-step .el-step__title {
+    height: 15px;
+    line-height: 15px;
+    font-size: 12px;
+}
+
+/**单据页面隐藏*/
+@media ( max-width : 1100px) {
+	.order-list-parent{
+    	width:100%;
+    	position: relative;
+    }
+	.form-parent{
+        position: absolute;
+		display: block;
+        flex: 100%;
+        width:100%;
+        padding: 0;
+    }
+}
+
+
+
+
+
+/**表单状态切换样式*/
+.form-status{
+	float:left;
+	color:rgb(0,0,0);
+	margin-top:5px;
+	margin-right: 5px;
+}
+.form-status .el-radio-group{
+	width: 40px;
+}
+.form-status .el-radio-button{
+	width: 25px;
+}
+.form-status .el-radio-button__inner{
+	width: 25px;
+}
+.form-status .el-radio-button--small .el-radio-button__inner{
+	border: 1px solid rgb(240,240,240);
+	color: rgb(240,240,240);
+	padding: 7px 0;
+}
+.form-status .el-radio-button__inner{
+	width: 25px;
+}
+
+.form-status .el-radio-button__orig-radio:checked+.el-radio-button__inner{
+	background: rgb(240,240,240);
+	color: rgb(0,205,255);
+	-webkit-box-shadow: 0 0 0 0 #409EFF;
+    box-shadow: 0 0 0 0 #409EFF
+}
+
+
+.form-option{
+	padding: 0px 5px 5px 5px;
+	text-align: right;
+}
+
+.form-option .el-button {
+    display: inline-block;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    background: #fff;
+    border: 0;
+    color: rgb(255,255,255);
+    -webkit-appearance: none;
+    text-align: center;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    outline: 0;
+    margin: 0;
+    -webkit-transition: .1s;
+    transition: .1s;
+    font-weight: 500;
+    padding: 0;
+    font-size: 14px;
+    border-radius: 4px;
+    background: rgb(0,205,255);
+    height: 30px;
+    width: 65px;
+    border:0; 
+    
+}
+.form-option  .el-button-group>.el-button:not(:last-child){
+	margin-right: 1px;
+}
+
+.form-option .el-button span {
+    display: inline-block;
+	margin: 0;
+	padding: 0;
+}
+.form-option .normal{
+	background: rgb(240,240,240);
+	color: rgb(0,0,0);
+}
+
+.cloud-form{
+	position: absolute;
+	top: 0;
+	right: 1px;
+	background: rgb(255,255,255);
+	width: 340px;
+	height: calc(100vh);
+	z-index:999;
+}
+
+/**筛选表单总体设计*/
+.search-form{
+	position: absolute;
+	top: 0;
+	right: 1px;
+	background: rgb(255,255,255);
+	width: 340px;
+	height: calc(100vh);
+	z-index:1010;
+}
+.search-form .search-form-title{
+	height: 40px;
+	line-height: 40px;
+	background: rgb(0,202,255);
+	padding:0 10px;
+	font-weight: bold;
+	color: rgb(255,255,255)
+	
+}
+.search-form .search-form-content{
+	padding:5px;
+	height: calc(100vh - 95px);
+}
+.search-form .search-form-btn{
+	padding: 10px;
+	text-align: right;
+}
+
+.search-form .el-form-item--small.el-form-item{
+	margin-bottom: 5px;
+}
+.search-form  .el-radio.is-bordered+.el-radio.is-bordered{
+	margin: 0;
+}
+.search-form  .el-radio--small.is-bordered{
+	width: 70px;
+}
+.search-form   .el-radio--small.is-bordered {
+    padding: 8px 0 0 2px;
+    border-radius: 3px;
+    height: 32px;
+}
+.search-form   .el-radio__label{
+	padding-left: 2px;
+}
+
+
+.search-form  .el-button{
+	margin: 0;
+	outline: none;
+	border: 0;
+	background: rgb(0,205,255);
+	color:rgb(255,255,255);
+	height: 30px;
+	width: 60px;
+}
+
+.search-form  .el-input__inner{
+	margin: 0;
+	outline: none;
+	border: 0;
+	background: rgb(245,245,245);
+	height: 30px;
+}
+
+.search-form  .el-radio{
+	background: rgb(245,245,245);
+}
+
+.search-form .el-radio.is-bordered{
+	border-color: rgb(240,240,240);
+	background: rgb(255,255,255)
+}
+
+.search-form .el-radio.is-bordered.is-checked{
+	border-color: rgb(255,255,255);
+	background: rgb(240,240,240)
+}
+
+.product-param{
+	width: 100%;
+	border: 1px solid rgb(255,255,255);
+}
+.product-param th{
+	width: 33.3%;
+	border: 1px solid rgb(255,255,255);
+	text-align: center;
+}
+.product-param td{
+	width: 33.3%;
+	border: 1px solid rgb(255,255,255);
+	text-align: right;
+	height: 15px;
+	line-height: 15px;
+	padding: 0 5px;
+}
+
+.el-table td{
+	vertical-align:top;
+}
+
+.el-table td p{
+	padding: 0;
+	margin: 0;
+}
+.order-money{
+	width: 100%;
+	border-collapse: separate;
+    border-spacing: 0;
+    border: 0;
+}
+.order-money th{
+	background: rgb(240,240,240);
+	width: 20%;
+	text-align: center;
+	color: rgb(150,150,150);
+}
+.order-money td{
+	border:1px solid rgb(255,255,255);
+	border-right:0;
+	width: 20%;
+	background: rgb(250,250,250);
+	text-align: right;
+	padding: 0 10px;
+}
+
+.order-money tr:first-child th:first-child {
+     border-top-left-radius: 5px;
+}
+
+.order-money tr:first-child th:last-child {
+     border-top-right-radius: 5px;
+ }
+ .order-money tr:last-child td:first-child {
+     border-bottom-left-radius: 5px;
+ }
+
+ .order-money tr:last-child td:last-child {
+     border-bottom-right-radius: 5px;
+ }
+
+.order-list-content p{
+	height: 20px;
+	line-height: 20px;
+	margin: 0;
+	padding: 0;
+}
+.order-list-content p b{
+	display: inline-block;
+	width: 60px;
+	text-align: right;
+	padding-right: 5px;
+	color: rgb(200,200,200);
+}
+.mini-date{
+	color: rgb(200,200,200);
+	font-size: 10px;
+}
+.table-tools{
+	position: absolute;
+	left:80px;
+	top:0px;
+}
+.toolsbtn.el-button{
+	background: rgb(240,240,240);
+	color: rgb(0,0,0);
+	font-size: 14px;
+	padding: 0;
+	margin: 0;
+	width: 25px;
+	height: 25px;
+	line-height: 25px;
+	margin-top: 1px;
+}
+.order-list .order-list-title  .toolsbtn.el-button{
+	background: rgb(240,240,240);
+	color: rgb(0,0,0);
+	font-size: 14px;
+	padding: 0;
+	margin: 0;
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	
+}
+.order-list .order-list-title .toolsbtn.el-button span{
+	margin: 0;
+}
+.cloud-title-content{
+	left: -100px;
+	top: 5px;
+	font-size: 14px;
+	font-weight: bold;
+}
+.select-card{
+	padding: 0 10px;
+}
+.select-card.el-card.is-always-shadow{
+    -webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, .1);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, .1);
+}
+.select-card .el-card__body{
+	height:30px;
+	line-height:30px;
+	padding: 0;
+	cursor: pointer;
+}
+.select-card span.tag{
+	height: 25px;
+	border-radius:5px;
+	margin: 0;
+	padding: 4px 4px;
+	background: rgb(236,240,245);
+}
+.select-card span.opt{
+	float: left;
+	background: rgb(240,240,240);
+	padding-right: 10px ;
+	margin-right: 5px;
+}
+.select-card span.opt a{
+	margin-left: 10px;
+	color: rgb(0,0,0);
+}
+.select-card span.optend{
+	float: right;
+	background: rgb(240,240,240);
+	padding-left: 10px ;
+	margin-left: 5px;
+}
+.select-card span.optend a{
+	margin-right: 10px;
+	color: rgb(0,0,0);
+}
+.el-table td p.scope-edit {
+	background:rgb(235,239,246);
+	cursor: pointer;
+	height: 23.5px;
+	line-height: 23.5px;
+	border-radius: 5px;
+	padding: 0 10px;
+	border: 2px rgb(235,239,246);
+}
+.table-form .el-form-item__content{
+	margin-left: 0px !important;
+}
+
+
+.shangp{
+}
+
+.shangp.el-card{
+	border: 0;
+	background:rgb(248,248,248);
+	margin-bottom: 5px;
+}
+.shangp.el-card.is-always-shadow, .money.el-card.is-hover-shadow:focus, .el-card.is-hover-shadow:hover{
+	-webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, .1);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, .1);
+}
+
+.money{
+	text-align: right;
+}
+
+.money.el-card{
+	border: 0;
+}
+.money.el-card.is-always-shadow, .money.el-card.is-hover-shadow:focus, .el-card.is-hover-shadow:hover{
+	-webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, .1);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, .1);
+}
