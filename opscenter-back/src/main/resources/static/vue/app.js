@@ -54,7 +54,7 @@ function vueLoad(data){
             currentPath:"/welcome",
             homepage:"/welcome",
             navdata: {
-                logo: {alt:"ruerp",src:"../../imgs/logo.png"},
+                logo: {alt:"appjishu",src:"../../imgs/logo.png"},
                 navItems:[
                     {class:"fa fa-bell",badge:3},
                     {class:"fa fa-envelope-open",badge:5}
@@ -124,7 +124,7 @@ function vueLoad(data){
                             {name:"模块管理",href:"#",class:"fa fa-delicious",active:false},
                         ]
                     },{
-                        name:"ruerp",
+                        name:"appjishu",
                         href:"#",
                         class:"fa fa-dropbox",
                         active:false,

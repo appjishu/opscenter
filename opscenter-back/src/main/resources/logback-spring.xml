@@ -36,8 +36,8 @@
     </root>
  
 	<!-- 定义各个包的详细路径，继承root宝的值 -->
-	<logger name="com.ruerp" level="INFO" />
-	<logger name="com.ruerp" level="TRACE" />
+	<logger name="com.appjishu" level="INFO" />
+	<logger name="com.appjishu" level="TRACE" />
  	<logger name="org.springframework.jdbc.core.JdbcTemplate" level="DEBUG" />
 
  	<!-- 此值由 application.properties的spring.profiles.active=dev指定-->

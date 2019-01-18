@@ -29,7 +29,7 @@ function vueLoad(data){
         	currentPath: "",
             //顶部数据,可以根据系统实际进行增减修改
             navdata: {
-                logo: {alt:"ruerp",src:"../../imgs/logo.png"},
+                logo: {alt:"appjishu",src:"../../imgs/logo.png"},
                 navItems:[
                     {class:"fa fa-bell",badge:3},
                     {class:"fa fa-envelope-open",badge:5},
@@ -45,7 +45,7 @@ function vueLoad(data){
             sidebardata: [{
                 name:"系统导航",
                 menu:[{
-                        name:"ruerp",
+                        name:"appjishu",
                         href:"#",
                         class:"fa fa-dropbox",
                         active:false,
