@@ -1,0 +1,121 @@
+security:
+  basic:
+    enabled: false
+spring:
+  activiti:
+    check-process-definitions: false
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/ingrid?useUnicode=true&characterEncoding=utf-8&useOldAliasMetadataBehavior=true
+    username: dbcenter
+    password: somepass
+#  session:
+#    jdbc:
+#      initialize-schema: embedded
+#      schema: classpath:org/springframework/session/jdbc/schema-mysql.sql
+#      table-name: SPRING_SESSION
+#    timeout: 1
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss SSS
+    timeZone: GMT+8
+    serialization:
+      write-dates-as-timestamps: false
+    parser:
+      allow-unquoted-field-names: true
+  # thymeleaf:
+  #   prefix: classpath:/templates/
+  #   encoding: UTF-8
+  #   cache: false
+  #   suffix: .html
+  #   mode: LEGACYHTML
+  cache:
+    type: ehcache
+    ehcache:
+      config: classpath:/ehcache.xml
+  jpa:
+    database: MYSQL
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
+    properties:
+      hibernate:
+        current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
+  mvc:
+    favicon:
+      enabled: false
+
+# JWT相关配置
+jwt:
+  header: Authorization
+  secret: mySecret
+  expiration: 10
+  tokenHead: Bearer
+  route:
+    authentication:
+      path: auth/login
+      refresh: auth/refresh
+      register: auth/register
+
+# wechat Auth
+weixin:
+  app:
+    appId: wx6ee3bc015d480a02
+    secret: b63047e15af6056f52d7ded3493fb6a8
+
+appjishu:
+  img:
+    path: classpath:/static/imgs/avatar/
+
+ureport:
+  fileStoreDir: D:/ureportfiles
+
+#多数据源数据库配置
+ingrid:
+  database:
+    table: CREATE TABLE ingrid_datasource(poolName VARCHAR(32),driverClassName VARCHAR(256),jdbcUrl VARCHAR(256),username VARCHAR(32),password VARCHAR(32),maxPoolSize INT,connectionTimeout BIGINT,minIdle INT,idleTimeout BIGINT,PRIMARY KEY (`poolName`)) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+    insert: insert ingrid_datasource(poolName,driverClassName,jdbcUrl,username,password ,maxPoolSize,connectionTimeout,minIdle,idleTimeout) values(?,?,?,?,?,?,?,?,?)
+    queryList: select poolName,driverClassName,jdbcUrl,username,password,maxPoolSize as maximumPoolSize,connectionTimeout,minIdle as minimumIdle,idleTimeout from ingrid_datasource
+    query: select poolName,driverClassName,jdbcUrl,username,password,maxPoolSize as maximumPoolSize,connectionTimeout,minIdle as minimumIdle,idleTimeout from ingrid_datasource where poolName=?
+    update: update ingrid_datasource set driverClassName=?,jdbcUrl=?,username=?,password=?,maxPoolSize=?,connectionTimeout=?,minIdle=?,idleTimeout=? where poolName=?
+    delete: delete from ingrid_datasource where poolName=?
+  method:
+    table: CREATE TABLE ingrid_method (methodId BIGINT AUTO_INCREMENT,methodName VARCHAR(32) NOT NULL unique,document VARCHAR(255) ,poolName VARCHAR(32),outParam VARCHAR(2000),sqlType VARCHAR(16),rsStatus BOOLEAN,PRIMARY KEY (`methodId`))ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+    tableSub: CREATE TABLE ingrid_method_sql (methodId BIGINT,line INT,content VARCHAR(2000))ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+    insert: INSERT ingrid_method(methodName,document,poolName,outParam,sqlType,rsStatus)VALUES(?,?,?,?,?,?);
+    insertSub: INSERT ingrid_method_sql(methodId,line,content)VALUES(?,?,?);
+    queryList: SELECT methodId,methodName,document,poolName,outParam,sqlType,rsStatus FROM ingrid_method;
+    queryByPoolName: SELECT methodId,methodName,document,poolName,outParam,sqlType,rsStatus FROM ingrid_method WHERE poolName=?;
+    query: SELECT methodId,methodName,document,poolName,outParam,sqlType,rsStatus FROM ingrid_method WHERE methodName=? and poolName=?;
+    querySub: SELECT methodId,line,content FROM ingrid_method_sql WHERE methodId=?;
+    update: UPDATE ingrid_method SET methodName=?,document=?,poolName=?,outParam=?,sqlType=?,rsStatus=? WHERE methodId=?;
+    delete: DELETE FROM ingrid_method WHERE methodId = ?;
+    deleteSub: DELETE FROM ingrid_method_sql WHERE methodId = ?;
+  report:
+    table:  CREATE TABLE ingrid_report (reportId BIGINT AUTO_INCREMENT,name VARCHAR(32) NOT NULL UNIQUE,content TEXT,createDate DATETIME,updateDate DATETIME,PRIMARY KEY (`reportId`))ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+    insert: INSERT ingrid_report(name,content,createDate,updateDate)VALUES(?,?,NOW(),NOW());
+    queryList: SELECT name,updateDate FROM ingrid_report;
+    query: SELECT content FROM ingrid_report WHERE name=?;
+    update: UPDATE ingrid_report SET content=?,updateDate=NOW() WHERE name=?;
+    delete: DELETE FROM ingrid_report WHERE name=?;
+    check: SELECT COUNT(1) AS num FROM ingrid_report WHERE name=?;
+    prefix: ingrid-
+    disabled: false
+  procedure:
+    ver:
+      table: CREATE TABLE ingrid_procedure_ver (verId BIGINT AUTO_INCREMENT,poolName VARCHAR(32) NOT NULL unique,name VARCHAR(32),crdate DATETIME,refdate DATETIME,verdate DATETIME,PRIMARY KEY (`bakId`))ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+      tableSub: CREATE TABLE ingrid_procedure_ver_text (verId BIGINT,line INT,content VARCHAR(2000))ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+      insertVer: insert ingrid_procedure_ver(poolName,name,crdate,refdate,verdate) values(?,?,?,?,getdate())
+      insertVerText: insert ingrid_procedure_ver_text(verId,line,content)values(?,?,?)
+      queryVer: select verId,poolName,name,crdate,refdate,verdate from dba_exec_proc_bak where name=? and procName=? order by verdate desc
+      queryVerText: select verId,line,content from dba_exec_proc_text_bak where verId = ? order by line asc
+    mssql:
+      queryList: select name,crdate,refdate from sysobjects where xtype='P'
+      queryText: select text from syscomments where id = ( select id from sysobjects where name = ? )
+      queryTableList: select name from sys.tables
+      queryColums: SELECT x.column_name as field,	data_type + case data_type when 'sql_variant' then '' when 'text' then '' when 'decimal' then '(' + cast(numeric_precision as varchar) + ', ' + cast(numeric_scale as varchar) + ')' when 'numeric' then '(' + cast(numeric_precision as varchar) + ', ' + cast(numeric_scale as varchar) + ')' else coalesce('('+case when character_maximum_length = -1 then 'MAX' else cast(character_maximum_length as varchar) end +')','') end 	as type, case when exists (     select id from syscolumns    where object_name(id)=?    and name=x.column_name    and columnproperty(id,name,'IsIdentity') = 1     ) then    'IDENTITY(' +     cast(ident_seed(?) as varchar) + ',' +     cast(ident_incr(?) as varchar) + ')'    else ''    end as extra,     (case when IS_NULLABLE = 'No' then 'NO ' else 'YES' end )  as nullStatus , case when x.COLUMN_DEFAULT IS NOT NULL THEN 'DEFAULT '+ x.COLUMN_DEFAULT ELSE '' END  	 as defaultx,	 y.constraint_type as keyx from information_schema.columns as x 	 left join	 (select column_name,constraint_type,kcu.table_name FROM   information_schema.key_column_usage kcu,information_schema.table_constraints tc WHERE  kcu.Constraint_Name = tc.Constraint_Name) as y on x.table_name=y.table_name and x.column_name = y.column_name	 where x.table_name = ? order by ordinal_position
+    mysql:
+      queryList: SELECT name,created AS crdate,modified AS refdate  FROM mysql.proc WHERE db=? AND TYPE='PROCEDURE'
+      queryText: SELECT name,param_list,body FROM mysql.proc WHERE db=? AND type='PROCEDURE' AND name = ?
+      queryTableList: SELECT table_name as name FROM information_schema.tables WHERE table_schema=? AND table_type='base table';
+      queryColums: SHOW FULL COLUMNS FROM
