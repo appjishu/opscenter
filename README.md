@@ -5,7 +5,7 @@
 <br/>
 演示地址
 <br/>
-👉 [http://opscenter.appjishu.com](http://opscenter.appjishu.com)
+👉 [http://opscenter.appjishu.com/app/index.html#/](http://opscenter.appjishu.com/app/index.html#/)
 <br/>
 **Star me on GitHub** 
 <br/>
@@ -36,7 +36,7 @@
 <br/>
 演示地址
 <br/>
-👉 [http://opscenter.appjishu.com](http://opscenter.appjishu.com)
+👉 [http://opscenter.appjishu.com/app/index.html#/](http://opscenter.appjishu.com/app/index.html#/)
 <br/>
 用户名admin     密码123456
 <br/>
