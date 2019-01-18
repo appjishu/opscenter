@@ -10,8 +10,8 @@ import org.springframework.context.annotation.ImportResource;
 @SpringBootApplication(exclude = {
         org.activiti.spring.boot.SecurityAutoConfiguration.class,
 })
-public class DBCenterApplication {
+public class OpsCenterApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(DBCenterApplication.class, args);
+		SpringApplication.run(OpsCenterApplication.class, args);
 	}
 }
